@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>测量计算器</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+body{background:#f0f7ff;padding:8px;max-width:320px;margin:0 auto}
+.title{text-align:center;margin:8px 0;font-size:18px}
+input{width:100%;padding:8px;margin:4px 0;border-radius:6px;border:1px solid #ccc;font-size:14px}
+.button-group{display:flex;gap:8px;margin:10px 0}
+button{flex:1;padding:10px;border:none;border-radius:6px;background:#007bff;color:#fff;font-size:15px}
+.clear{background:#ff3b30}
+.result{background:#fff;padding:10px;border-radius:6px;margin-top:8px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="title">测量计算器</div>
+<input type="number" id="slant" placeholder="斜距">
+<input type="number" id="deg" placeholder="度">
+<input type="number" id="min" placeholder="分">
+<input type="number" id="sec" placeholder="秒">
+<div class="button-group">
+<button onclick="calc()">计算</button>
+<button class="clear" onclick="clr()">清除</button>
+</div>
+<div class="result" id="pingju">平距：</div>
+<div class="result" id="gaocha">高差：</div>
+
+<script>
+function dms(d,m,s){return d+m/60+s/3600}
+function calc(){
+  var l=parseFloat(document.getElementById('slant').value)||0
+  var d=parseFloat(document.getElementById('deg').value)||0
+  var m=parseFloat(document.getElementById('min').value)||0
+  var s=parseFloat(document.getElementById('sec').value)||0
+  var deg=dms(d,m,s)
+  var rad=deg*Math.PI/180
+  var p=l*Math.sin(rad)
+  var h=l*Math.cos(rad)
+  document.getElementById('pingju').innerText='平距：'+p.toFixed(3)+' mm'
+  document.getElementById('gaocha').innerText='高差：'+h.toFixed(3)+' mm'
+}
+function clr(){
+  document.getElementById('slant').value=''
+  document.getElementById('deg').value=''
+  document.getElementById('min').value=''
+  document.getElementById('sec').value=''
+  document.getElementById('pingju').innerText='平距：'
+  document.getElementById('gaocha').innerText='高差：'
+}
+</script>
+</body>
+</html>
